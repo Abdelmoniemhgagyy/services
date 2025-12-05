@@ -3,60 +3,512 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>دليل الدكاترة</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<title>دليل الأطباء</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 * {margin:0;padding:0;box-sizing:border-box;}
-body {font-family:"Cairo",sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px 15px;}
-.container {max-width:900px;margin:0 auto;}
-h1 {text-align:center;font-size:32px;font-weight:800;color:white;margin-bottom:10px;text-shadow:0 2px 10px rgba(0,0,0,0.2);}
-.subtitle {text-align:center;font-size:16px;color:rgba(255,255,255,0.9);margin-bottom:25px;}
-.search-box {position:relative;background:white;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.2);overflow:hidden;margin-bottom:20px;}
-.search-box::before {content:"🔍";position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:20px;}
-.search-box input {width:100%;padding:18px 55px 18px 20px;font-size:16px;border:none;outline:none;background:transparent;}
-.doctor-card {background:white;padding:20px;margin-bottom:15px;border-radius:20px;box-shadow:0 8px 25px rgba(0,0,0,0.15);position:relative;transition:0.3s;}
-.doctor-card::before {content:"";position:absolute;top:0;right:0;width:5px;height:100%;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);}
-.doctor-card:hover {transform:translateY(-5px);box-shadow:0 12px 35px rgba(0,0,0,0.2);}
-.doctor-info-row {display:flex;justify-content:space-between;flex-wrap:wrap;gap:15px;}
-.doctor-text-info {display:flex;flex-wrap:wrap;gap:15px;flex:1;flex-direction:row;align-items:center;}
-.doctor-name {font-weight:700;color:#2d3748;display:inline-flex;align-items:center;gap:6px;}
-.doctor-name::before {content:"👨‍⚕️";}
-.specialty {font-weight:600;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.specialty::before {content:"🩺";margin-left:3px;-webkit-text-fill-color:initial;}
-.address {display:inline-flex;align-items:center;gap:6px;color:#4a5568;}
-.address::before {content:"📍";}
-.phone-btn {display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#10b981 0%,#059669 100%);color:white;padding:8px 16px;border-radius:10px;text-decoration:none;font-weight:600;box-shadow:0 4px 15px rgba(16,185,129,0.3);white-space:nowrap;transition:0.3s;}
-.phone-btn:hover {transform:scale(1.05);}
 
-#openFormBtn { position: fixed; top: 7px; left: 6px; width: 10px; height: 15px; border-radius: 50%; font-size: 24px; background: #613a9d; color: white; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255,127,80,0.3); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-#passPopup {display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:1000;}
-#passPopup .popupContent {background:white;padding:20px 25px;border-radius:15px;width:300px;text-align:center;box-shadow:0 5px 20px rgba(0,0,0,0.3);position:relative;}
-#passPopup .popupContent input {width:90%;padding:10px;margin-top:15px;border-radius:8px;border:1px solid #ccc;}
-#passPopup .popupContent button {margin-top:15px;padding:10px 20px;border:none;background:#4caf50;color:white;border-radius:10px;cursor:pointer;}
-#passPopup .popupContent button:hover {transform:scale(1.05);}
-#passPopup .closeBtn {position:absolute;top:10px;left:10px;cursor:pointer;font-weight:bold;font-size:18px;}
+body {
+    font-family:"Cairo",sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background-attachment: fixed;
+    min-height:100vh;
+    padding:20px 15px;
+    position: relative;
+    overflow-x: hidden;
+}
 
-#formPopup {display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:999;}
-#formPopup #formContent {background:white;padding:25px;border-radius:20px;max-width:450px;width:90%;box-shadow:0 5px 20px rgba(0,0,0,0.25);position:relative;}
-#formPopup #formContent input {width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid #ccc;font-size:15px;}
-#formPopup #formContent button {width:100%;padding:14px;font-size:16px;font-weight:700;border:none;border-radius:12px;background:#4caf50;color:white;cursor:pointer;}
-#formPopup #formContent button:hover {transform:scale(1.05);}
-#formPopup #closeForm {position:absolute;top:12px;left:12px;font-size:20px;cursor:pointer;font-weight:bold;}
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: moveBackground 20s linear infinite;
+    z-index: 0;
+}
+
+@keyframes moveBackground {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+.container {
+    max-width:950px;
+    margin:0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.header-section {
+    text-align: center;
+    margin-bottom: 35px;
+    animation: fadeInDown 0.8s ease;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.header-icon {
+    font-size: 70px;
+    margin-bottom: 15px;
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 12px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: 20px;
+    color: rgba(255,255,255,0.95);
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.search-box {
+    position: relative;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    overflow: hidden;
+    margin-bottom: 30px;
+    transition: 0.3s;
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.search-box:hover {
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    transform: translateY(-2px);
+}
+
+.search-box::before {
+    content:"🔍";
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    z-index: 2;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 22px 70px 22px 25px;
+    font-size: 17px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.search-box input::placeholder {
+    color: #a0aec0;
+}
+
+.doctors-list {
+    animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.doctor-card {
+    background: white;
+    padding: 25px;
+    margin-bottom: 18px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.doctor-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    transition: 0.4s;
+}
+
+.doctor-card::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(240,147,251,0.05) 100%);
+    transform: rotate(45deg);
+    transition: 0.6s;
+    z-index: 0;
+}
+
+.doctor-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(102,126,234,0.3);
+    border-color: #667eea;
+}
+
+.doctor-card:hover::before {
+    width: 100%;
+}
+
+.doctor-card:hover::after {
+    right: 50%;
+    top: 50%;
+}
+
+.doctor-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.doctor-text-info {
+    flex: 1;
+}
+
+.doctor-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.doctor-name::before {
+    content: "👨‍⚕️";
+    font-size: 28px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+}
+
+.specialty {
+    display: inline-block;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.specialty::before {
+    content: "🩺";
+    margin-left: 6px;
+}
+
+.specialty::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    transition: 0.5s;
+}
+
+.doctor-card:hover .specialty::after {
+    left: 100%;
+}
+
+.address {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: #4a5568;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-top: 10px;
+}
+
+.address::before {
+    content: "📍";
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.phone-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 16px 28px;
+    border-radius: 18px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 17px;
+    box-shadow: 0 8px 20px rgba(16,185,129,0.4);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.phone-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.phone-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.phone-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 30px rgba(16,185,129,0.5);
+}
+
+.phone-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+#openFormBtn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    font-size: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(102,126,234,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 8px 25px rgba(102,126,234,0.5);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 12px 35px rgba(102,126,234,0.7);
+    }
+}
+
+#openFormBtn:hover {
+    transform: scale(1.15) rotate(90deg);
+}
+
+#openFormBtn::before {
+    content: "➕";
+}
+
+#passPopup, #formPopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    animation: fadeIn 0.3s ease;
+}
+
+.popupContent, #formContent {
+    background: white;
+    padding: 35px;
+    border-radius: 30px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    position: relative;
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.popupContent h3, #formContent h2 {
+    margin-bottom: 20px;
+    color: #2d3748;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.popupContent input, #formContent input {
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    border: 2px solid #e2e8f0;
+    font-size: 16px;
+    transition: 0.3s;
+    font-family: "Cairo", sans-serif;
+}
+
+.popupContent input:focus, #formContent input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102,126,234,0.1);
+}
+
+.popupContent button, #formContent button {
+    padding: 15px 35px;
+    border: none;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 17px;
+    transition: 0.3s;
+    box-shadow: 0 6px 20px rgba(102,126,234,0.4);
+    font-family: "Cairo", sans-serif;
+}
+
+.popupContent button:hover, #formContent button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(102,126,234,0.5);
+}
+
+.closeBtn, #closeForm {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 24px;
+    color: #718096;
+    transition: 0.3s;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f7fafc;
+}
+
+.closeBtn:hover, #closeForm:hover {
+    color: #e53e3e;
+    background: #fed7d7;
+    transform: rotate(90deg);
+}
 
 @media (max-width:600px){
-    .doctor-info-row{flex-direction:column;align-items:flex-start;gap:12px;}
-    .doctor-text-info{flex-direction:column;align-items:flex-start;gap:6px;width:100%;}
-    .phone-btn{width:100%;justify-content:center;padding:12px 0;border-radius:12px;}
+    h1 { font-size: 36px; }
+    .subtitle { font-size: 16px; }
+    .header-icon { font-size: 50px; }
+    
+    .doctor-card { padding: 20px; }
+    
+    .doctor-info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .doctor-name {
+        font-size: 20px;
+    }
+    
+    .phone-btn {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+    }
+    
+    #openFormBtn {
+        bottom: 20px;
+        left: 20px;
+        width: 55px;
+        height: 55px;
+    }
 }
 </style>
 </head>
 <body>
 <div class="container">
-    <h1>🏥 دليل الدكاترة</h1>
-    <p class="subtitle">ابحث عن طبيبك بسهولة</p>
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="ابحث باسم الدكتور أو التخصص...">
+    <div class="header-section">
+        <div class="header-icon">🏥</div>
+        <h1>دليل الدكاترة</h1>
+        <p class="subtitle">ابحث عن طبيبك بسهولة وسرعة</p>
     </div>
+    
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="ابحث باسم الدكتور أو التخصص أو المنطقة...">
+    </div>
+    
     <div id="doctors" class="doctors-list"></div>
 </div>
 
@@ -66,10 +518,10 @@ h1 {text-align:center;font-size:32px;font-weight:800;color:white;margin-bottom:1
 <div id="passPopup">
     <div class="popupContent">
         <span class="closeBtn" id="closePass">✖</span>
-        <h3>أدخل كلمة السر</h3>
+        <h3>🔐 أدخل كلمة السر</h3>
         <input type="password" id="passwordInput" placeholder="كلمة السر">
         <button id="submitPass">تأكيد</button>
-        <p id="passMsg" style="margin-top:10px;font-weight:bold;"></p>
+        <p id="passMsg" style="margin-top:15px;font-weight:bold;"></p>
     </div>
 </div>
 
@@ -77,13 +529,13 @@ h1 {text-align:center;font-size:32px;font-weight:800;color:white;margin-bottom:1
 <div id="formPopup">
     <div id="formContent">
         <span id="closeForm">✖</span>
-        <h2 style="text-align:center;margin-bottom:15px;">إضافة دكتور جديد</h2>
+        <h2>➕ إضافة دكتور جديد</h2>
         <input type="text" id="f_name" placeholder="اسم الدكتور">
         <input type="text" id="f_specialty" placeholder="التخصص">
         <input type="text" id="f_address" placeholder="العنوان">
         <input type="text" id="f_phone" placeholder="رقم الهاتف">
         <button onclick="addDoctor()">إضافة</button>
-        <p id="formMsg" style="text-align:center;margin-top:10px;font-weight:bold;"></p>
+        <p id="formMsg" style="margin-top:15px;font-weight:bold;"></p>
     </div>
 </div>
 
@@ -91,40 +543,73 @@ h1 {text-align:center;font-size:32px;font-weight:800;color:white;margin-bottom:1
 const sheetUrl = "https://script.google.com/macros/s/AKfycbxpe81iR2LzKA512bV-9EGACZGgmX2gbWtmMcNaDwVzFmoVfBubxjJ6fSYiyRbsqmKqMg/exec";
 let doctorsData = [];
 
+// وظيفة لتطبيع النص (إزالة الهمزات والتشكيل)
+function normalizeText(text) {
+    if (!text) return '';
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(/[\u064B-\u0652]/g, '')
+        .replace(/[أإآٱ]/g, 'ا')
+        .replace(/[ة]/g, 'ه')
+        .replace(/[ىئ]/g, 'ي')
+        .replace(/\s+/g, ' ');
+}
+
 // Load doctors
 fetch("https://opensheet.elk.sh/1fBiLGLvS9tGSOaC9lJLQJ8jJKvp3HK6kwPR8skZgi94/1")
 .then(res=>res.json())
-.then(data=>{doctorsData=data; displayDoctors(doctorsData);});
+.then(data=>{
+    doctorsData=data;
+    displayDoctors(doctorsData);
+})
+.catch(err=>{
+    document.getElementById("doctors").innerHTML="<p style='color:white;text-align:center;font-size:18px;'>⚠️ حدث خطأ في تحميل البيانات</p>";
+});
 
 function displayDoctors(list){
     const container = document.getElementById("doctors");
     container.innerHTML="";
-    if(list.length===0){ container.innerHTML="<p style='color:white;text-align:center;'>لا توجد نتائج</p>"; return;}
-    list.forEach(doc=>{
+    
+    if(list.length===0){
+        container.innerHTML="<p style='color:white;text-align:center;font-size:20px;padding:40px;background:rgba(255,255,255,0.1);border-radius:20px;'>❌ لا توجد نتائج مطابقة للبحث</p>";
+        return;
+    }
+    
+    list.forEach((doc, index)=>{
         const card = document.createElement("div");
         card.className="doctor-card";
+        card.style.animationDelay = `${index * 0.1}s`;
         card.innerHTML=`
             <div class="doctor-info-row">
                 <div class="doctor-text-info">
-                    <span class="doctor-name">${doc.name}</span>
-                    <span class="specialty">${doc.specialty}</span>
-                    <span class="address">${doc.address}</span>
+                    <div class="doctor-name">${doc.name}</div>
+                    <div class="specialty">${doc.specialty}</div>
+                    <div class="address">${doc.address}</div>
                 </div>
-                <a href="tel:${doc.phone}" class="phone-btn">📞 ${doc.phone}</a>
+                <a href="tel:${doc.phone}" class="phone-btn">
+                    <span>📞 ${doc.phone}</span>
+                </a>
             </div>
         `;
         container.appendChild(card);
     });
 }
 
-// Search
+// Search with normalization
 document.getElementById("searchInput").addEventListener("input", function(){
-    const keyword=this.value.toLowerCase().trim();
-    const filtered=doctorsData.filter(doc=>
-        doc.name.toLowerCase().includes(keyword) ||
-        doc.specialty.toLowerCase().includes(keyword) ||
-        doc.address.toLowerCase().includes(keyword)
-    );
+    const keyword = normalizeText(this.value);
+    
+    const filtered = doctorsData.filter(doc => {
+        const name = normalizeText(doc.name);
+        const specialty = normalizeText(doc.specialty);
+        const address = normalizeText(doc.address);
+        
+        return name.includes(keyword) || 
+               specialty.includes(keyword) || 
+               address.includes(keyword);
+    });
+    
     displayDoctors(filtered);
 });
 
@@ -137,31 +622,48 @@ const submitPass = document.getElementById("submitPass");
 const passMsg = document.getElementById("passMsg");
 
 openBtn.onclick = ()=>{ passPopup.style.display="flex"; }
-closePass.onclick = ()=>{ passPopup.style.display="none"; passMsg.innerText=""; document.getElementById("passwordInput").value=""; }
+closePass.onclick = ()=>{ 
+    passPopup.style.display="none";
+    passMsg.innerText="";
+    document.getElementById("passwordInput").value="";
+}
+
 submitPass.onclick = ()=>{
     const inputPass = document.getElementById("passwordInput").value;
-    if(inputPass==="1234"){ // كلمة السر
+    if(inputPass==="1234"){
         passPopup.style.display="none";
         formPopup.style.display="flex";
         document.getElementById("passwordInput").value="";
         passMsg.innerText="";
     } else {
-        passMsg.innerText="كلمة السر خاطئة!";
-        passMsg.style.color="red";
+        passMsg.innerText="❌ كلمة السر خاطئة!";
+        passMsg.style.color="#e53e3e";
     }
 }
 
-// Form popup
-document.getElementById("closeForm").onclick = ()=>{ formPopup.style.display="none"; document.getElementById("formMsg").innerHTML=""; }
+document.getElementById("closeForm").onclick = ()=>{ 
+    formPopup.style.display="none";
+    document.getElementById("formMsg").innerHTML="";
+}
 
 // Add doctor
 function addDoctor(){
-    const data={
-        name: document.getElementById("f_name").value,
-        specialty: document.getElementById("f_specialty").value,
-        address: document.getElementById("f_address").value,
-        phone: document.getElementById("f_phone").value
-    };
+    const name = document.getElementById("f_name").value.trim();
+    const specialty = document.getElementById("f_specialty").value.trim();
+    const address = document.getElementById("f_address").value.trim();
+    const phone = document.getElementById("f_phone").value.trim();
+    
+    if(!name || !specialty || !address || !phone){
+        document.getElementById("formMsg").innerHTML="⚠️ يرجى ملء جميع الحقول";
+        document.getElementById("formMsg").style.color="#f59e0b";
+        return;
+    }
+    
+    const data = {name, specialty, address, phone};
+    
+    document.getElementById("formMsg").innerHTML="⏳ جاري الإضافة...";
+    document.getElementById("formMsg").style.color="#667eea";
+    
     fetch(sheetUrl,{
         method:"POST",
         headers:{"Content-Type":"application/json"},
@@ -169,14 +671,29 @@ function addDoctor(){
     })
     .then(res=>res.text())
     .then(resp=>{
-        document.getElementById("formMsg").innerHTML="✔ تمت الإضافة بنجاح";
+        document.getElementById("formMsg").innerHTML="✅ تمت الإضافة بنجاح";
+        document.getElementById("formMsg").style.color="#10b981";
         document.getElementById("f_name").value="";
         document.getElementById("f_specialty").value="";
         document.getElementById("f_address").value="";
         document.getElementById("f_phone").value="";
-        setTimeout(()=>{ formPopup.style.display="none"; location.reload(); },1000);
+        setTimeout(()=>{ formPopup.style.display="none"; location.reload(); },1500);
     })
-    .catch(err=>{document.getElementById("formMsg").innerHTML="❌ حدث خطأ"; console.error(err);});
+    .catch(err=>{
+        document.getElementById("formMsg").innerHTML="❌ حدث خطأ في الإضافة";
+        document.getElementById("formMsg").style.color="#e53e3e";
+        console.error(err);
+    });
+}
+
+// Close modals on outside click
+window.onclick = (event) => {
+    if(event.target === passPopup) {
+        passPopup.style.display = "none";
+    }
+    if(event.target === formPopup) {
+        formPopup.style.display = "none";
+    }
 }
 </script>
 </body>
