@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>رجاءً الهاتف صامت</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
 * {
   margin: 0;
@@ -18,7 +18,7 @@ body {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px;
+  padding: 15px;
   position: relative;
   overflow: hidden;
 }
@@ -31,22 +31,22 @@ body::before {
   width: 200%;
   height: 200%;
   background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
+  background-size: 30px 30px;
   animation: movePattern 20s linear infinite;
 }
 
 @keyframes movePattern {
   0% { transform: translate(0, 0); }
-  100% { transform: translate(50px, 50px); }
+  100% { transform: translate(30px, 30px); }
 }
 
 .container {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
-  padding: 50px 40px;
-  border-radius: 25px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  max-width: 450px;
+  padding: 30px 20px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  max-width: 380px;
   width: 100%;
   position: relative;
   z-index: 1;
@@ -65,33 +65,35 @@ body::before {
 }
 
 .icon {
-  font-size: 80px;
-  margin-bottom: 20px;
+  font-size: 70px;
+  margin-bottom: 15px;
   animation: pulse 2s ease-in-out infinite;
+  line-height: 1;
 }
 
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  50% { transform: scale(1.08); }
 }
 
 h1 {
   color: #2c3e50;
-  font-size: 28px;
-  margin-bottom: 15px;
+  font-size: 24px;
+  margin-bottom: 12px;
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .message {
   color: #555;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.6;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
 }
 
 .btn {
-  font-size: 20px;
-  padding: 18px 40px;
+  font-size: 18px;
+  padding: 16px 30px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
@@ -99,10 +101,12 @@ h1 {
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
   width: 100%;
   position: relative;
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .btn::before {
@@ -118,60 +122,83 @@ h1 {
   transition: width 0.6s, height 0.6s;
 }
 
-.btn:hover::before {
+.btn:active::before {
   width: 300px;
   height: 300px;
 }
 
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
-}
-
 .btn:active {
-  transform: translateY(-1px);
+  transform: scale(0.96);
 }
 
 .btn-text {
   position: relative;
   z-index: 1;
+  display: block;
 }
 
 .footer {
-  margin-top: 25px;
+  margin-top: 20px;
   color: #7f8c8d;
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
+  line-height: 1.4;
 }
 
 .footer-icon {
-  font-size: 18px;
+  font-size: 16px;
   animation: float 3s ease-in-out infinite;
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  50% { transform: translateY(-4px); }
 }
 
-@media (max-width: 480px) {
+/* تحسينات خاصة بالشاشات الصغيرة */
+@media (max-width: 360px) {
   .container {
-    padding: 40px 25px;
+    padding: 25px 18px;
   }
   
   h1 {
-    font-size: 24px;
+    font-size: 22px;
   }
   
   .message {
-    font-size: 16px;
+    font-size: 15px;
   }
   
   .icon {
     font-size: 60px;
+  }
+  
+  .btn {
+    font-size: 17px;
+    padding: 14px 25px;
+  }
+}
+
+/* تحسين للشاشات الطويلة */
+@media (max-height: 667px) {
+  .container {
+    padding: 25px 20px;
+  }
+  
+  .icon {
+    font-size: 60px;
+    margin-bottom: 12px;
+  }
+  
+  h1 {
+    margin-bottom: 10px;
+  }
+  
+  .message {
+    margin-bottom: 20px;
   }
 }
 </style>
@@ -183,7 +210,7 @@ h1 {
     تعظيمًا لحرمة بيت الله وحفاظًا على الخشوع في الصلاة
   </p>
   <button class="btn" onclick="goSilent()">
-    <span class="btn-text">📵 حوّل الهاتف إلى الوضع الصامت</span>
+    <span class="btn-text">📵 حوّل للوضع الصامت</span>
   </button>
   <div class="footer">
     <span class="footer-icon">🕌</span>
@@ -193,11 +220,9 @@ h1 {
 
 <script>
 function goSilent() {
-  // محاولة فتح إعدادات الصوت على Android
   try {
     window.location.href = "intent:#Intent;action=android.settings.SOUND_SETTINGS;end";
   } catch(e) {
-    // في حالة عدم نجاح الأمر، عرض رسالة
     alert('يرجى إسكات الهاتف يدويًا من إعدادات الصوت 🔇');
   }
 }
