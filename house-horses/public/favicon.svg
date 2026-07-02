@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title>بيت الخيول</title>
+  <desc>أيقونة على شكل حدوة حصان لمتجر أدوات الخيل</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4b351c" />
+      <stop offset="100%" stop-color="#8a6235" />
+    </linearGradient>
+    <linearGradient id="shoe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8e4b4" />
+      <stop offset="100%" stop-color="#d2a95f" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)" />
+  <path
+    d="M174 152c0-45 37-82 82-82s82 37 82 82"
+    fill="none"
+    stroke="#f3d78e"
+    stroke-width="30"
+    stroke-linecap="round"
+  />
+  <path
+    d="M178 150v66c0 40 32 72 72 72s72-32 72-72v-66"
+    fill="none"
+    stroke="url(#shoe)"
+    stroke-width="46"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <circle cx="168" cy="236" r="13" fill="#fff2c8" />
+  <circle cx="256" cy="302" r="13" fill="#fff2c8" />
+  <circle cx="344" cy="236" r="13" fill="#fff2c8" />
+  <path d="M216 386h80" stroke="#f7dc9c" stroke-width="18" stroke-linecap="round" />
+  <path d="M214 388l-24 24" stroke="#f7dc9c" stroke-width="14" stroke-linecap="round" />
+  <path d="M298 388l24 24" stroke="#f7dc9c" stroke-width="14" stroke-linecap="round" />
+</svg>

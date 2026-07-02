@@ -1,0 +1,7 @@
+body {
+  direction: rtl;
+}
+
+#root {
+  min-height: 100vh;
+}
