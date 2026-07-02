@@ -46,7 +46,7 @@ const supabase =
       })
     : null;
 const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1508343919546-4a5792fee935?auto=format&fit=crop&w=2200&q=92";
+  "https://images.unsplash.com/photo-1511199147662-55eb9df2fcb6?auto=format&fit=crop&w=900&q=82";
 const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1511199147662-55eb9df2fcb6?auto=format&fit=crop&w=900&q=82",
   "https://images.unsplash.com/photo-1566251037378-5e04e3bec343?auto=format&fit=crop&w=900&q=82",
