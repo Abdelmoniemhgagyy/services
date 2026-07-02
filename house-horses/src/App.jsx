@@ -318,7 +318,9 @@ export default function App() {
     if (!client) {
       setLoading(false);
       setIsError(true);
-      setStatus("المنتجات غير متاحة حاليا.");
+      setStatus(
+        "المنتجات غير متاحة حاليا. تأكد من ضبط VITE_SUPABASE_URL و VITE_SUPABASE_ANON_KEY و VITE_STORE_SLUG في Vercel ثم أعد النشر."
+      );
       return;
     }
 
@@ -348,7 +350,7 @@ export default function App() {
     } catch (error) {
       console.error(error);
       setProducts([]);
-      setStatus("تعذر تحميل المنتجات. حاول مرة أخرى بعد قليل.");
+      setStatus("تعذر تحميل المنتجات من Supabase. راجع اسم الـRPC والـEnvironment Variables في Vercel.");
       setIsError(true);
     } finally {
       setLoading(false);
