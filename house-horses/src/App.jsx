@@ -278,6 +278,15 @@ export default function App() {
     () => cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
     [cartItems]
   );
+  const hasActiveFilters =
+    Boolean(query.trim()) || category !== "الكل" || Boolean(onlyOffers) || maxPrice < highestPrice;
+  const emptyStateMessage = !products.length
+    ? isError
+      ? status || "تعذر تحميل المنتجات. راجع إعدادات Supabase و Vercel."
+      : "لا توجد منتجات منشورة لهذا المتجر حاليا. تأكد من `VITE_STORE_SLUG` وبيانات Supabase."
+    : hasActiveFilters
+      ? "لا توجد منتجات مطابقة حاليا."
+      : "لا توجد منتجات منشورة حاليا.";
 
   useEffect(() => {
     document.title = "بيت الخيول | متجر فاخر";
@@ -435,7 +444,6 @@ export default function App() {
     setIsError(true);
   }
 
-  const emptyState = !loading && filteredProducts.length === 0;
   const themeLabel = theme === "dark" ? "الوضع النهاري" : "الوضع الليلي";
 
   return (
@@ -592,8 +600,8 @@ export default function App() {
               <div className="product-card skeleton" key={index} />
             ))}
           </div>
-        ) : emptyState ? (
-          <div className="empty-state">لا توجد منتجات مطابقة حاليا.</div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="empty-state">{emptyStateMessage}</div>
         ) : (
           <div className="products-grid" aria-live="polite">
             {filteredProducts.map((product, index) => {
